@@ -4,7 +4,7 @@ import string
 from pathlib import Path
 
 def main():
-    config = Path(Path.home(), ".psswdmngr", "config.enc")
+    config = Path(Path.home(), ".frontear", "password.enc")
     if not config.parent.exists():
         config.parent.mkdir()
 
