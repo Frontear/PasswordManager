@@ -1,5 +1,5 @@
 import enc
-import string
+import json
 
 from pathlib import Path
 
@@ -9,15 +9,19 @@ def main():
         config.parent.mkdir()
 
     with open(config, "wb+") as f:
+        data = {
+            "YouTube": [ # identifier
+                "Frontear", # username
+                "hunter2" # password
+            ]
+        }
         password = "test_password"
-        f.write(e := enc.encrypt(string.printable, password))
-        print(e)
-        print()
+
+        f.write(enc.encrypt(json.dumps(data), password))
 
         f.seek(0)
-        print(d := enc.decrypt(f.read(), "test_password"))
-
-        assert string.printable == d
+        data = json.loads(enc.decrypt(f.read(), "test_password"))
+        print(data["YouTube"])
 
 if __name__ == "__main__":
     main()
